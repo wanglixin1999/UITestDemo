@@ -48,7 +48,21 @@
     [textField2 tap];
     [textField2 typeText:@"123"];
     [app.buttons[@"Login"] tap];
-    [app.buttons[@"back"] tap];
+//    [app.buttons[@"back"] tap];
+}
+
+-(void)testLoginUI {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIElementQuery *loginElementsQuery = [app.otherElements containingType:XCUIElementTypeButton identifier:@"Login"];
+    XCUIElement *textField = [[loginElementsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
+    [textField tap];
+    [textField typeText:@"aaa"];
+    
+    XCUIElement *textField2 = [[loginElementsQuery childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:1];
+    [textField2 tap];
+    [textField2 tap];
+    [textField2 typeText:@"123"];
+    [app.buttons[@"Login"] tap];
 }
 
 //-(void)testBack {

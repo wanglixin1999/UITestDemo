@@ -33,16 +33,32 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html",@"application/json", @"text/json", nil];
+    
     [manager POST:url parameters:dict progress:^(NSProgress * _Nonnull uploadProgress) {
-
+        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"success:%@",responseObject);
+        [self jumpToSecondVC];
+//        SecondViewController *svc = [[SecondViewController alloc] init];
+//        [self presentViewController:svc animated:YES completion:^{
+//            NSLog(@"---over---");
+//        }];
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error:%@",error);
     }];
 }
 
 - (IBAction)jumpAction:(UIButton *)sender {
+    [self userLogin];
+}
+
+-(void)jumpToSecondVC {
+    UIStoryboard *mainStoryboard = [UIStoryboard                                    storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc = [mainStoryboard                                             instantiateViewControllerWithIdentifier:@"secondvc"];
+    vc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    [self presentViewController:vc animated:YES completion:^{
+        NSLog(@"登录成功!");
+    }];
 }
 
 @end
